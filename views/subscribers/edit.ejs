@@ -1,0 +1,18 @@
+<div class="form-data">
+    <form action="/subscribers/<%=subscriber._id%>/update?_method=PUT" method="POST">
+        <pre>
+            <!-- <%= JSON.stringify(subscriber) %>  -->
+        </pre>
+        <label for="txtTitle">Name</label>
+        <input type="text" name="name" id="txtTitle" autofocus required value="<%=subscriber.name%>">
+
+        <label for="txtDescription">Email</label>
+        <input type="email" name="email" id="txtCost" required value="<%=subscriber.email %> "> 
+       
+        <label for="txtCost">Zip Code</label>
+        <input type="text" name="zipCode" id="txtCost" required value="<%=subscriber.zipCode %> "> 
+
+        <button type="submit">Save</button>
+
+    </form>
+</div>

@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.flash {
+    @apply rounded py-2 px-4 m-4 font-bold 
+}
+
+.success {
+    @apply bg-green-200 text-green-800
+}
+
+.error {
+    @apply bg-red-200 text-red-800
+
+}

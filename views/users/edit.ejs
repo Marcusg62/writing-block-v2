@@ -1,0 +1,23 @@
+<div class="form-data">
+    <form action="/users/<%=user._id%>/update?_method=PUT" method="POST">
+        
+    <label for="txtTitle">First</label>
+    <input autocomplete="none" type="text" name="first" id="txtTitle" autofocus required value="<%=user.name.first %> "/>
+    
+    <label for="txtTitle">Last</label>
+    <input autocomplete="none" type="text" name="last" id="txtTitle" required value="<%=user.name.last %> "/>
+
+    <label for="txtZip">Zip Code</label>
+    <input autocomplete="none" type="text" name="zipCode" id="txtZip" required value="<%=user.zipCode %> "/>
+    
+    <label for="txtDescription">Email</label>
+    <input autocomplete="none" type="email" name="email" id="txtMaxStudents" required value="<%=user.email%> "/>
+
+    <label for="txtMaxStudents">Password</label>
+    <input autocomplete="none" type="password" name="password" id="txtMaxStudents" required value="<%=user.password%> "/>
+
+
+    <button type="submit">Save</button>
+
+    </form>
+</div>
