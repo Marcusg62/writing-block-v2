@@ -12,8 +12,11 @@ Design Choices/Added Features:
 8. Added proper error handling, usually?
 9. Added post capability for users, where users are able to upload and post their writing to the website
 
-SUMMARY: 
-The main push was to get the WYSIWYG editor. (HTML EDITOR) It has a similar UI to editing a Google Doc. No small feat! Need to focus more on input sanitation but that will come. We also have not figured out how to upload images. 
+# SUMMARY: 
+
+## The main push was to get the WYSIWYG editor. (HTML EDITOR) It has a similar UI to editing a Google Doc. No small feat! Need to focus more on input sanitation but that will come. We also have not figured out how to upload images. 
+
+## Also need to add security, ie not anybody can update another users' piece of writing. 
 
 ![Drag Racing](sshot.png)
 
