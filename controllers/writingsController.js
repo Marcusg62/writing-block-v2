@@ -70,7 +70,7 @@ module.exports = {
         let writingId = req.params.id;
         Writing.findById(writingId)
             .then((writing) => {
-                res.render("writings/edit", { writing: writing });
+                res.render("writings/edit", { piece: writing });
             })
             .catch((error) => {
                 console.error("Error fetching user by id. ");
@@ -81,6 +81,8 @@ module.exports = {
             return next()
         }
         let writingId = req.params.id;
+        console.log("writing id", req.params);
+
         console.log("edit data: ", req.body);
 
         let updatedWriting = {
@@ -88,19 +90,20 @@ module.exports = {
             content: req.body.content,
             description: req.body.description,
             author: req.user._id
-        };
+        }; 
 
-        try {
-            console.log("writing id", writingId);
+        try { 
             const doc = await Writing.findById(writingId);
-            // console.log("found writ", doc);
+            console.log("found writ", doc);
             await Writing.findByIdAndUpdate(writingId, {
                 $set: updatedWriting,
             });
             res.locals.redirect = `/writings/${doc._id}`;
+            req.flash("success", "Writing piece succesfully updated!")
+
             next();
-        } catch (error) {
-            console.error(error);
+        } catch (error) { 
+            console.error(error); 
             next(error);
         }
 
@@ -116,7 +119,7 @@ module.exports = {
             .catch((error) => {
                 console.error("error deleting writing");
                 next(error);
-            });
+            }); 
 
     },
     redirectView: (req, res, next) => {

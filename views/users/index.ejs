@@ -1,28 +1,25 @@
-<h2 class="text-xl text-center my-8">Our Writer Community ❤️</h2>
-        <% users.forEach((c)=> { %>
-                <div class="flex justify-center align-middle h-md w-md my-2 ">
-                    <img
-                      class="h-md w-36 rounded-full"
-                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60"
-                      alt=""
-                    />
-                  <div class="flex flex-wrap align-middle ml-4">
-                    <p class="w-full text-lg font-medium text-gray-900">
-                      <%= c.fullName %> 
-                      <span
-                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                      >
-                        Verified
-                      </span>
-                    </p>
-                    <p class="w-full has-dropcap font-serif sm:w-full md:w-auto">
-                      <%= c.about %> 
-                    </p>
-            
-                    <div>
-                      <a href="/users/<%= c._id %> " class="text-indigo-600 hover:text-indigo-900"
-                        >View Articles</a
-                      >
-                    </div>
-                </div>
-            <% }) %>  
+<h2 class="text-xl text-center my-8 font-bold border-b pb-6">Our Writer Community ❤️</h2>
+<div class="flex flex-wrap justify-center">
+  <% users.forEach((c)=> { %>
+    <div class="flex justify-center align-middle h-md w-md m-4 ">
+      <img class="h-md w-36 h-36 rounded-full"
+        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60"
+        alt="" />
+      <div class="flex flex-wrap align-middle ml-4">
+        <p class="w-full text-lg font-medium text-gray-900">
+          <%= c.fullName %>
+            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+              Verified
+            </span>
+        </p>
+        <p class="w-full has-dropcap font-serif sm:w-full md:w-auto">
+          <%= c.about %>
+        </p>
+
+        <div>
+          <a href="/users/<%= c._id %> " class="text-indigo-600 hover:text-indigo-900">View Articles</a>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+</div>

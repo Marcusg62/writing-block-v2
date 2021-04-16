@@ -123,7 +123,7 @@ router.put(
 router.delete(
   "/subscribers/:id/delete",
   subscribersController.delete,
-  subscribersController.redirectView
+  subscribersController.redirectView 
 );
 router.get("/subscribers/:id", subscribersController.show, subscribersController.showView);
 
