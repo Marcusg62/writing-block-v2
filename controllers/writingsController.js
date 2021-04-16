@@ -4,14 +4,13 @@ const Writing = require('../models/writing')
 
 module.exports = {
     index: async (req, res) => {
-        if (req.user) {
-            let result = await Writing.find({ author: req.user._id }).exec()
+        let result = await Writing.find({}).exec()
 
-            res.locals.writings = result;
-        }
+        res.locals.writings = result;
+
         res.render("writings/index")
     },
-    
+
     new: (req, res) => {
         console.log('running new...')
         res.render("writings/new");
@@ -35,7 +34,7 @@ module.exports = {
         try {
             let result = await newWork.save()
             req.flash("success", "User account succesfully created!")
-            res.locals.redirect = "/writing"
+            res.locals.redirect = "/users/" + req.user._id
             next()
 
         } catch (error) {
@@ -111,7 +110,7 @@ module.exports = {
         let writingId = req.params.id;
         Writing.findByIdAndRemove(writingId)
             .then(() => {
-                res.locals.redirect = "/writings";
+                res.locals.redirect = "/users/" + req.user._id
                 next();
             })
             .catch((error) => {

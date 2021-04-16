@@ -1,17 +1,22 @@
-<% if (loggedIn) { %>
+<div class="w-full max-w-md flex flex-wrap mx-auto">
 
-<h1 class="font-bold text-2xl text-center my-8">My pieces of writing</h1>
-<% writings.forEach(piece => { %>
-<div class="p-2 border-b">
-  <h3 class="font-bold"><%= piece.title %></h3>
-  <h4><%= piece.description %></h4>
+  <h1 class="font-bold text-center mt-8">Recent pieces from our community of writers. </h1>
+  <% writings.forEach(piece=> { %>
+    <div class="w-full border-b my-2">
+      <a href="/writings/<%= piece.id%> ">
+        <h3>
+          <span class="font-bold text-lg underline">
+            <%= piece.title %>
+          </span>
+        </h3>
+        <h4>Written By: <%= piece.author %> </h4>
+        <h5>Published: <%= piece.createdAt.toLocaleString() %>   </h5>
+      </a>
+      <h4>
+        <%= piece.description %>
+      </h4>
 
+    </div>
+
+    <% }) %>
 </div>
-
-<% }) %> <% } else { %>
-
-<div>
-  <p class="text-center text-lg my-8"> <a href="/users/login" class="underline text-blue-600">Login</a> to view and create your own pieces of writing.</p>
-</div>
-
-<% } %>
