@@ -1,4 +1,5 @@
-UPDATE: 04/15/2021
+# Report
+## UPDATE: 04/15/2021
 
 Design Choices/Added Features:
 
