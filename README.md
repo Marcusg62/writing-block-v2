@@ -37,5 +37,5 @@ Ability to comment and like an article or novel
 
 
 Instructions to Launch:
-npm install
-npm run dev
+`npm install`
+`npm run dev`
