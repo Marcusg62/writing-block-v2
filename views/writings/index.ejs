@@ -1,0 +1,17 @@
+<% if (loggedIn) { %>
+
+<h1 class="font-bold text-2xl text-center my-8">My pieces of writing</h1>
+<% writings.forEach(piece => { %>
+<div class="p-2 border-b">
+  <h3 class="font-bold"><%= piece.title %></h3>
+  <h4><%= piece.description %></h4>
+
+</div>
+
+<% }) %> <% } else { %>
+
+<div>
+  <p class="text-center text-lg my-8"> <a href="/users/login" class="underline text-blue-600">Login</a> to view and create your own pieces of writing.</p>
+</div>
+
+<% } %>

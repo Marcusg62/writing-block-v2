@@ -87,7 +87,12 @@
                   >Sign Up</a
                 >
                 <% } %> <% if (loggedIn) { %>
-
+                <a
+                  href="/writing/new"
+                  class="px-3 py-2 hover:bg-blue-700 hover:text-white rounded-md text-sm font-medium"
+                >
+                  Write New Piece</a
+                >
                 <a
                   href=""
                   class="rounded text-sm border text-red-600 p-2 mt-2 mr-2 float-right"
@@ -136,20 +141,18 @@
           >
           <% if (!loggedIn) { %>
           <a
-            href="users/login"
+            href="/users/login"
             class="hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
             >Sign In</a
           >
           <a
-            href="users/new"
+            href="/users/new"
             class="hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
             >Sign Up</a
           >
           <% } %> <% if (loggedIn) { %>
 
-          <a
-            href="users/logout"
-            class="rounded text-sm border text-red-600 p-2"
+          <a href="/users/logout" class="rounded text-sm border text-red-600 p-2"
             >Logout</a
           >
 
@@ -167,7 +170,7 @@
       <% } } %>
     </div>
 
-    <div class="container"><%- body %></div>
+    <div class="mx-4"><%- body %></div>
 
     <script>
       window.addEventListener("click", function (e) {

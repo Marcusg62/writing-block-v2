@@ -1,29 +1,52 @@
-<h2 class="center">user Details</h2>
-<table class="table">
-    <tbody>
-        <tr>
-            <th>Full Name</th>
+<% if (loggedIn) { %>
+  <div class="bg-gray-100 p-4 flex flex-wrap justify-center mb-8">
+    <p class="text-center font-bold my-4 w-full">My Account</p>
+    <a class="btn mx-auto my-2" href="/writings/new">Write a new piece. </a>
+  </div>
 
-            <th>Email</th>
+  <% } %>
 
-            <th>Password (😂)</th>
+    <div class="flex justify-center align-middle h-md w-md my-2">
+      <img class="h-md w-36 rounded-full"
+        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60"
+        alt="" />
+      <div class="flex flex-wrap align-middle ml-4">
+        <p class="w-full text-lg font-medium text-gray-900">
+          <%= user.fullName %>
+            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+              Verified
+            </span>
+        </p>
+        <p class="w-full has-dropcap font-serif sm:w-full md:w-auto">
+          <%= user.about %>
+        </p>
+        <a class="w-full underline text-blue-500" href="<%= user.website %> ">
+          <%= user.website %>
+        </a>
+      </div>
+    </div>
 
-            <th>Zip Code</th>
+    <div class="w-full max-w-md flex flex-wrap mx-auto">
+      <% writings.forEach(piece=> { %>
+        <div class="w-full">
+          <a href="/writing/<%= piece.id%> ">
+            <h3>
+              <span class="font-bold text-lg underline">
+                <%= piece.title %> 
+              </span>
+               <span>&nbsp;</span>
+              <% if (loggedIn) { %>
+                <!-- <a href="/writing/<%= piece._id %> " class="underline text-sm">View</a> -->
+                <a href="/writing/<%= piece._id %>/edit" class="underline text-blue-600 text-sm">Edit</a>
+                <a href="/writing/<%= piece._id %>/delete" class="underline text-red-600 text-sm">Delete</a>
+                <% } %>
+            </h3>
+          </a>
+          <h4>
+            <%= piece.description %>
+          </h4>
 
-        </tr>
-        <tr>
-            <td>
-                <%= user.fullName %>
-            </td>
-            <td>
-                <%= user.email %>
-            </td>
-            <td>
-                <%= user.password %>
-            </td>
-            <td>
-                <%= user.zipCode %>
-            </td>
-        </tr>
-    </tbody>
-</table>
+        </div>
+
+        <% }) %>
+    </div>

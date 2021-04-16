@@ -19,6 +19,7 @@ const express = require("express"),
   usersController = require("./controllers/usersController"),
   coursesController = require("./controllers/coursesController"),
   User = require("./models/user");
+  const writingsController = require('./controllers/writingsController')
 
 
 // const cookieParser = require('cookie-parser')
@@ -134,12 +135,22 @@ router.put("/courses/:id/update", coursesController.update, coursesController.re
 router.delete("/courses/:id/delete", coursesController.delete, coursesController.redirectView);
 router.get("/courses/:id", coursesController.show, coursesController.showView);
 
+
+router.get("/writings", writingsController.index);
+
+router.get("/writings/new", writingsController.new);
+router.post("/writings/create", writingsController.create, writingsController.redirectView);
+router.get("/writings/:id/edit", writingsController.edit);
+router.put("/writings/:id/update", writingsController.update, writingsController.redirectView);
+router.delete("/writings/:id/delete", writingsController.delete, writingsController.redirectView);
+router.get("/writings/:id", writingsController.show, writingsController.showView);
+
 // router.post("/subscribe", subscribersController.saveSubscriber);
-
+ 
 // router.use(errorController.logErrors);
-// router.use(errorController.respondNoResourceFound);
+// router.use(errorController.respondNoResourceFound); 
 // router.use(errorController.respondInternalError);
-
+ 
 app.use("/", router);
 
 app.listen(app.get("port"), () => {

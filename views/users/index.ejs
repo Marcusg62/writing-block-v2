@@ -1,9 +1,6 @@
 <h2 class="text-xl text-center my-8">Our Writer Community ❤️</h2>
-<table class="table">
-    <tbody>
         <% users.forEach((c)=> { %>
-            <tr>
-                <div class="flex justify-center align-middle h-md w-md ">
+                <div class="flex justify-center align-middle h-md w-md my-2 ">
                     <img
                       class="h-md w-36 rounded-full"
                       src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60"
@@ -23,12 +20,9 @@
                     </p>
             
                     <div>
-                      <a href="#" class="text-indigo-600 hover:text-indigo-900"
+                      <a href="/users/<%= c._id %> " class="text-indigo-600 hover:text-indigo-900"
                         >View Articles</a
                       >
                     </div>
                 </div>
-            </tr>
             <% }) %>  
-    </tbody>
-</table>

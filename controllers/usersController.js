@@ -1,5 +1,6 @@
 const passport = require("passport");
 const User = require("../models/user");
+const Writing = require('../models/writing')
 
 module.exports = {
 	login: (req, res) => {
@@ -115,17 +116,28 @@ module.exports = {
 		successRedirect: "/",
 		successFlash: "Logged in!"
 	}),
-	show: (req, res, next) => {
-		let userId = req.params.id;
-		User.findById(userId)
-			.then((user) => {
-				res.locals.user = user;
-				next();
-			})
-			.catch((error) => {
-				console.log("Error fetching user by id. ");
-				next(error);
-			});
+	show: async (req, res, next) => {
+
+		try {
+			let userId = req.params.id;
+			let user = await User.findById(userId);
+			res.locals.user = user;
+
+
+			let writings = await Writing.find({ author: userId }).exec()
+
+			res.locals.writings = writings;
+
+
+			next();
+
+
+		} catch (error) {
+			console.log("Error fetching user by id. ");
+			next(error);
+		}
+
+
 	},
 	showView: (req, res) => {
 		res.render("users/show");
