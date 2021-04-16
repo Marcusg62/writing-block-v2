@@ -53,9 +53,9 @@
                       class="px-3 py-2 hover:bg-blue-700 hover:text-white rounded-md text-sm font-medium">
                       Write New Piece</a>
                     <% } %>
-                    <a href="/writings"
-                    class="px-3 py-2 hover:bg-blue-700 hover:text-white rounded-md text-sm font-medium">
-                    View Recent Pieces</a>
+                      <a href="/writings"
+                        class="px-3 py-2 hover:bg-blue-700 hover:text-white rounded-md text-sm font-medium">
+                        View Recent Pieces</a>
             </div>
           </div>
         </div>
@@ -89,67 +89,65 @@
 
       </div>
     </div>
-    <% if (loggedIn) { %>
-      
-      <div class="bg-gray-100 p-4 flex flex-wrap justify-center text-sm">
-        <a href="/users/<%= currentUser._id %> "
-          class="underline font-bold">View My Account</a>
 
-        <p class="text-center">Logged In as: <%= currentUser.email %> <a href="/users/logout"
-              class="text-red-600 underline">Logout</a>
-        </p>
-        <a class="btn mx-auto" href="/writings/new">Write a new piece. </a>
-      </div>
-      <% } else { %>
-
-        <div class="bg-gray-100 p-2 flex flex-wrap justify-center text-sm">
-          <p class="text-center"> <a href="/users/login"
-                class="text-blue-600 underline">Login</a>
-          </p>
-        </div>
-        <% } %>
 
   </nav>
+  <% if (loggedIn) { %>
 
-  <div class="flashes">
-    <% if(flashMessages) { %>
-      <% if(flashMessages.success) { %>
-        <div class="flash success">
-          <%= flashMessages.success %>
+    <div class="bg-gray-100 p-4 flex flex-wrap justify-center text-sm">
+      <a href="/users/<%= currentUser._id %> " class="underline font-bold mx-2">View My Account</a>
+
+      <p class="text-center">Logged In as: <%= currentUser.email %> <a href="/users/logout"
+            class="text-red-600 underline">Logout</a>
+      </p>
+      <a class="btn mx-auto" href="/writings/new">Write a new piece. </a>
+    </div>
+    <% } else { %>
+
+      <div class="bg-gray-100 p-2 flex flex-wrap justify-center text-sm">
+        <p class="text-center"> <a href="/users/login" class="text-blue-600 underline">Login</a>
+        </p>
+      </div>
+      <% } %>
+        <div class="flashes">
+          <% if(flashMessages) { %>
+            <% if(flashMessages.success) { %>
+              <div class="flash success">
+                <%= flashMessages.success %>
+              </div>
+              <% } else if(flashMessages.error) { %>
+
+                <div class="flash error">
+                  <%= flashMessages.error %>
+                </div>
+                <% } } %>
         </div>
-        <% } else if(flashMessages.error) { %>
 
-          <div class="flash error">
-            <%= flashMessages.error %>
-          </div>
-          <% } } %>
-  </div>
+        <div class="mx-4">
+          <%- body %>
+        </div>
 
-  <div class="mx-4">
-    <%- body %>
-  </div>
+        <script>
+          window.addEventListener("click", function (e) {
+            if (
+              !document.getElementById("mobile-menu")?.contains(e.target) &&
+              !document.getElementById("menuToggle")?.contains(e.target)
+            ) {
+              console.log("hiding");
+              document.getElementById("mobile-menu")?.classList.add("hidden");
+            }
+          });
 
-  <script>
-    window.addEventListener("click", function (e) {
-      if (
-        !document.getElementById("mobile-menu")?.contains(e.target) &&
-        !document.getElementById("menuToggle")?.contains(e.target)
-      ) {
-        console.log("hiding");
-        document.getElementById("mobile-menu")?.classList.add("hidden");
-      }
-    });
-
-    function showMenu() {
-      if (
-        document?.getElementById("mobile-menu").classList.contains("hidden")
-      ) {
-        document?.getElementById("mobile-menu").classList.remove("hidden");
-      } else {
-        document?.getElementById("mobile-menu").classList.add("hidden");
-      }
-    }
-  </script>
+          function showMenu() {
+            if (
+              document?.getElementById("mobile-menu").classList.contains("hidden")
+            ) {
+              document?.getElementById("mobile-menu").classList.remove("hidden");
+            } else {
+              document?.getElementById("mobile-menu").classList.add("hidden");
+            }
+          }
+        </script>
 </body>
 
 </html>

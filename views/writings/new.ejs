@@ -1,53 +1,26 @@
-<script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/decoupled-document/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/classic/ckeditor.js"></script>
 <h1 class="text-xl text-center my-4 font-bold">Create A New Piece</h1>
 
 <!-- <button onclick="submitForm()">Get Data</button> -->
 <div class="m-2 max-w-lg">
   <!-- <form action="/writings/create" method="POST" id="form"> -->
   <label for="title" class="sr-only">New Title</label>
-  <input
-    type="text"
-    name="title"
-    id="txtTitle"
-    autocomplete="none"
-    required
-    class="formInput"
-    placeholder="Your Catchy Title"
-    value="New Title"
-  />
+  <input type="text" name="title" id="txtTitle" autocomplete="none" required class="formInput"
+    placeholder="Your Catchy Title" value="New Title" />
 
   <label for="description" class="sr-only">Describe your work. </label>
-  <textarea
-    placeholder="Describe your work. "
-    name="description"
-    id="txtDescription"
-    class="formInput"
-    cols="30"
-    rows="3"
-  >
-This is my new post! </textarea
-  >
+  <textarea placeholder="Describe your work. " name="description" id="txtDescription" class="formInput" cols="30"
+    rows="3">
+This is my new post! </textarea>
 </div>
 
-<div class="document-editor">
-  <div class="document-editor__toolbar"></div>
-  <div class="document-editor__editable-container">
-    <div class="document-editor__editable">
-      <p>Let's start your next masterpiece. ❤️</p>
-    </div>
-  </div>
-</div>
+<div id="editor">This is some sample content.</div>
+
 
 <div class="mt-4">
   <input type="radio" id="publishTrue" name="published" value="true" />
   <label for="publishTrue">Publish Now</label><br />
-  <input
-    type="radio"
-    id="publishFalse"
-    name="published"
-    value="false"
-    checked
-  />
+  <input type="radio" id="publishFalse" name="published" value="false" checked />
   <label for="publishFalse">Save as draft</label><br />
 </div>
 
@@ -58,22 +31,14 @@ This is my new post! </textarea
 
 <script>
   let editor;
-  DecoupledEditor.create(
-    document.querySelector(".document-editor__editable"),
-    {}
-  )
-    .then((newEditor) => {
-      const toolbarContainer = document.querySelector(
-        ".document-editor__toolbar"
-      );
-
-      toolbarContainer.appendChild(newEditor.ui.view.toolbar.element);
-
-      window.editor = newEditor;
+  ClassicEditor
+    .create(document.querySelector('#editor'))
+    .then(newEditor => {
+      console.log(editor);
       editor = newEditor;
     })
-    .catch((err) => {
-      console.error(err);
+    .catch(error => {
+      console.error(error);
     });
 
   async function submitForm() {
@@ -169,19 +134,13 @@ This is my new post! </textarea
 
   /* Adjust the headings dropdown to host some larger heading styles. */
   .document-editor .ck-heading-dropdown .ck-list .ck-button__label {
-    line-height: calc(
-      1.7 * var(--ck-line-height-base) * var(--ck-font-size-base)
-    );
+    line-height: calc(1.7 * var(--ck-line-height-base) * var(--ck-font-size-base));
     min-width: 6em;
   }
 
   /* Scale down all heading previews because they are way too big to be presented in the UI.
 Preserve the relative scale, though. */
-  .document-editor
-    .ck-heading-dropdown
-    .ck-list
-    .ck-button:not(.ck-heading_paragraph)
-    .ck-button__label {
+  .document-editor .ck-heading-dropdown .ck-list .ck-button:not(.ck-heading_paragraph) .ck-button__label {
     transform: scale(0.8);
     transform-origin: left;
   }
@@ -207,10 +166,7 @@ Preserve the relative scale, though. */
     color: hsl(203, 100%, 50%);
   }
 
-  .document-editor
-    .ck-heading-dropdown
-    .ck-heading_heading2.ck-on
-    .ck-button__label {
+  .document-editor .ck-heading-dropdown .ck-heading_heading2.ck-on .ck-button__label {
     color: var(--ck-color-list-button-on-text);
   }
 

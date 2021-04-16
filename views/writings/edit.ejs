@@ -1,222 +1,82 @@
-<script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/decoupled-document/ckeditor.js"></script>
-<h1 class="text-xl text-center my-4 font-bold">Edit Your Piece</h1>
+<% if (loggedIn && piece.author.toString()==currentUser._id.toString()) { %>
 
-<!-- <button onclick="submitForm()">Get Data</button> -->
-<div class="m-2 max-w-lg">
-    <!-- <form action="/writings/create" method="POST" id="form"> -->
-    <label for="title" class="sr-only">New Title</label>
-    <input type="text" name="title" id="txtTitle" autocomplete="none" required class="formInput"
-        placeholder="Your Catchy Title" value="<%= piece.title %> " />
+    <script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/classic/ckeditor.js"></script>
+    <h1 class="text-xl text-center my-4 font-bold">Edit Your Piece</h1>
 
-    <label for="description" class="sr-only">Describe your work. </label>
-    <textarea placeholder="Describe your work. " name="description" id="txtDescription" class="formInput" cols="30"
-        rows="3">
+    <!-- <button onclick="submitForm()">Get Data</button> -->
+    <div class="m-2 max-w-lg">
+        <!-- <form action="/writings/create" method="POST" id="form"> -->
+        <label for="title" class="sr-only">New Title</label>
+        <input type="text" name="title" id="txtTitle" autocomplete="none" required class="formInput"
+            placeholder="Your Catchy Title" value="<%= piece.title %> " />
+
+        <label for="description" class="sr-only">Describe your work. </label>
+        <textarea placeholder="Describe your work. " name="description" id="txtDescription" class="formInput" cols="30"
+            rows="3">
 <%= piece.description %> </textarea>
-</div>
-
-<div class="document-editor">
-    <div class="document-editor__toolbar"></div>
-    <div class="document-editor__editable-container">
-        <div class="document-editor__editable">
-            <%- piece.content %>
-        </div>
     </div>
-</div>
 
-<div class="mt-4">
-    <input type="radio" id="publishTrue" name="published" value="true" <%=piece.published? 'checked' : '' %>
-    />
-    <label for="publishTrue">Publish Now</label><br />
-    <input type="radio" id="publishFalse" name="published" value="false" <%=!piece.published? 'checked' : '' %>
-    />
-    <label for="publishFalse">Save as draft</label><br />
-</div>
+    <div id="editor">
+        <%- piece.content %>
+    </div>
 
-<div class="w-full flex justify-end my-4">
-    <button class="btn mx-2" onclick="submitForm('<%= piece._id%>')">Update and continue</button>
-</div>
-<!-- </form> -->
+    <div class="mt-4">
+        <input type="radio" id="publishTrue" name="published" value="true" <%=piece.published? 'checked' : '' %>
+        />
+        <label for="publishTrue">Publish Now</label><br />
+        <input type="radio" id="publishFalse" name="published" value="false" <%=!piece.published? 'checked' : '' %>
+        />
+        <label for="publishFalse">Save as draft</label><br />
+    </div>
 
-<script>
-    let editor;
-    DecoupledEditor.create(
-        document.querySelector(".document-editor__editable"),
-        {}
-    )
-        .then((newEditor) => {
-            const toolbarContainer = document.querySelector(
-                ".document-editor__toolbar"
-            );
+    <div class="w-full flex justify-end my-4">
+        <button class="btn mx-2" onclick="submitForm('<%= piece._id%>')">Update and continue</button>
+    </div>
+    <!-- </form> -->
 
-            toolbarContainer.appendChild(newEditor.ui.view.toolbar.element);
+    <script>
+        let editor;
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .then(newEditor => {
+                console.log(editor);
+                editor = newEditor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
 
-            window.editor = newEditor;
-            editor = newEditor;
-        })
-        .catch((err) => {
-            console.error(err);
-        });
+        async function submitForm(pieceId) {
+            console.log("data", editor.getData());
+            let body = {
+                title: document.getElementById("txtTitle").value,
+                content: editor.getData(),
+                description: document.getElementById("txtDescription").value,
+                published: document.getElementById("publishTrue").checked ? true : false,
+            };
 
-    async function submitForm(pieceId) {
-        console.log("data", editor.getData());
-        let body = {
-            title: document.getElementById("txtTitle").value,
-            content: editor.getData(),
-            description: document.getElementById("txtDescription").value,
-            published: document.getElementById("publishTrue").checked ? true : false,
-        };
-
-        const response = await fetch("/writings/" + pieceId + "/update?_method=PUT", {
-            method: "POST",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            headers: {
-                "Content-Type": "application/json",
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            redirect: "follow", // manual, *follow, error
-            body: JSON.stringify(body),
-        });
-        console.log("response", response);
-        console.log("response", response.json());
-        if (response.redirected) {
-            window.location.href = response.url;
+            const response = await fetch("/writings/" + pieceId + "/update?_method=PUT", {
+                method: "POST",
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                redirect: "follow", // manual, *follow, error
+                body: JSON.stringify(body),
+            });
+            console.log("response", response);
+            console.log("response", response.json());
+            if (response.redirected) {
+                window.location.href = response.url;
+            }
         }
-    }
-</script>
+    </script>
 
-<style>
-    .document-editor {
-        border: 1px solid var(--ck-color-base-border);
-        border-radius: var(--ck-border-radius);
-
-        /* Set vertical boundaries for the document editor. */
-        max-height: 700px;
-
-        /* This element is a flex container for easier rendering. */
-        display: flex;
-        flex-flow: column nowrap;
-    }
-
-    .document-editor__toolbar {
-        /* Make sure the toolbar container is always above the editable. */
-        z-index: 1;
-
-        /* Create the illusion of the toolbar floating over the editable. */
-        box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.2);
-
-        /* Use the CKEditor CSS variables to keep the UI consistent. */
-        border-bottom: 1px solid var(--ck-color-toolbar-border);
-    }
-
-    /* Adjust the look of the toolbar inside the container. */
-    .document-editor__toolbar .ck-toolbar {
-        border: 0;
-        border-radius: 0;
-    }
-
-    .document-editor__editable-container {
-        padding: calc(2 * var(--ck-spacing-large));
-        background: var(--ck-color-base-foreground);
-
-        /* Make it possible to scroll the "page" of the edited content. */
-        overflow-y: scroll;
-    }
-
-    .document-editor__editable-container .ck-editor__editable {
-        /* Set the dimensions of the "page". */
-        width: 15.8cm;
-        min-height: 21cm;
-
-        /* Keep the "page" off the boundaries of the container. */
-        padding: 1cm 2cm 2cm;
-
-        border: 1px hsl(0, 0%, 82.7%) solid;
-        border-radius: var(--ck-border-radius);
-        background: white;
-
-        /* The "page" should cast a slight shadow (3D illusion). */
-        box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.1);
-
-        /* Center the "page". */
-        margin: 0 auto;
-    }
-
-    .document-editor .ck-content,
-    .document-editor .ck-heading-dropdown .ck-list .ck-button__label {
-        font: 16px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
-    }
-
-    /* Adjust the headings dropdown to host some larger heading styles. */
-    .document-editor .ck-heading-dropdown .ck-list .ck-button__label {
-        line-height: calc(1.7 * var(--ck-line-height-base) * var(--ck-font-size-base));
-        min-width: 6em;
-    }
-
-    /* Scale down all heading previews because they are way too big to be presented in the UI.
-Preserve the relative scale, though. */
-    .document-editor .ck-heading-dropdown .ck-list .ck-button:not(.ck-heading_paragraph) .ck-button__label {
-        transform: scale(0.8);
-        transform-origin: left;
-    }
-
-    /* Set the styles for "Heading 1". */
-    .document-editor .ck-content h2,
-    .document-editor .ck-heading-dropdown .ck-heading_heading1 .ck-button__label {
-        font-size: 2.18em;
-        font-weight: normal;
-    }
-
-    .document-editor .ck-content h2 {
-        line-height: 1.37em;
-        padding-top: 0.342em;
-        margin-bottom: 0.142em;
-    }
-
-    /* Set the styles for "Heading 2". */
-    .document-editor .ck-content h3,
-    .document-editor .ck-heading-dropdown .ck-heading_heading2 .ck-button__label {
-        font-size: 1.75em;
-        font-weight: normal;
-        color: hsl(203, 100%, 50%);
-    }
-
-    .document-editor .ck-heading-dropdown .ck-heading_heading2.ck-on .ck-button__label {
-        color: var(--ck-color-list-button-on-text);
-    }
-
-    /* Set the styles for "Heading 2". */
-    .document-editor .ck-content h3 {
-        line-height: 1.86em;
-        padding-top: 0.171em;
-        margin-bottom: 0.357em;
-    }
-
-    /* Set the styles for "Heading 3". */
-    .document-editor .ck-content h4,
-    .document-editor .ck-heading-dropdown .ck-heading_heading3 .ck-button__label {
-        font-size: 1.31em;
-        font-weight: bold;
-    }
-
-    .document-editor .ck-content h4 {
-        line-height: 1.24em;
-        padding-top: 0.286em;
-        margin-bottom: 0.952em;
-    }
-
-    /* Set the styles for "Paragraph". */
-    .document-editor .ck-content p {
-        font-size: 1em;
-        line-height: 1.63em;
-        padding-top: 0.5em;
-        margin-bottom: 1.13em;
-    }
-
-    .document-editor .ck-content blockquote {
-        font-family: Georgia, serif;
-        margin-left: calc(2 * var(--ck-spacing-large));
-        margin-right: calc(2 * var(--ck-spacing-large));
-    }
-</style>
+    <% } else { %>
+        <div class="bg-red-300 rounded-md p-2">
+            <p class="text-md">This is not your post. You can't edit it, silly goose!</p>
+        </div>
+        <% } %>
