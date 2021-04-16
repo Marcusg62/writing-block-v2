@@ -40,7 +40,7 @@ module.exports = {
 
         } catch (error) {
             req.flash("error", `Failed to create user account: ${error.message}`)
-            res.locals.redirect = "/writing/new"
+            res.locals.redirect = "/writings/new"
             next()
         }
 

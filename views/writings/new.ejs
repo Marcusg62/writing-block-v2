@@ -3,7 +3,7 @@
 
 <!-- <button onclick="submitForm()">Get Data</button> -->
 <div class="m-2 max-w-lg">
-  <!-- <form action="/writing/create" method="POST" id="form"> -->
+  <!-- <form action="/writings/create" method="POST" id="form"> -->
   <label for="title" class="sr-only">New Title</label>
   <input
     type="text"
@@ -85,7 +85,7 @@ This is my new post! </textarea
       published: document.getElementById("publishTrue").checked ? true : false,
     };
 
-    const response = await fetch("/writing/create", {
+    const response = await fetch("/writings/create", {
       method: "POST",
       mode: "cors",
       cache: "no-cache",
