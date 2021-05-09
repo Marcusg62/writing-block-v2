@@ -13,7 +13,7 @@ const writingSchema = mongoose.Schema({
     },
     content: {
         type: String,
-        required: true
+        required: true,
     },
     author: {
         type: Schema.Types.ObjectId,
@@ -25,8 +25,16 @@ const writingSchema = mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
-    }
-
+    },
+    likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    reactions: [{
+        emoji: {
+            type: String,
+            unique: true,
+            length: 1
+        },
+        users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    }],
 },
     {
         timestamps: true

@@ -36,11 +36,7 @@ const userSchema = mongoose.Schema(
 		about: String,
 		website: String,
 		 
-		// courses: [{ type: mongoose.Schema.Types.ObjectId, ref: Course }],
-		// subscribedAccount: {
-		// 	type: mongoose.Schema.Types.ObjectId,
-		// 	ref: Subscriber,
-		// },
+		following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 	},
 	{
 		timestamps: true,

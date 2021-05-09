@@ -62,6 +62,13 @@ module.exports = {
         }
 
     },
+    getRecent: async (req, res) => {
+
+        let result = await Writing.find({}).populate('author').exec()
+
+        res.locals.writings = result;
+
+    },
     showView: (req, res) => {
         res.render("writings/show");
     },
@@ -90,9 +97,9 @@ module.exports = {
             content: req.body.content,
             description: req.body.description,
             author: req.user._id
-        }; 
+        };
 
-        try { 
+        try {
             const doc = await Writing.findById(writingId);
             console.log("found writ", doc);
             await Writing.findByIdAndUpdate(writingId, {
@@ -102,8 +109,8 @@ module.exports = {
             req.flash("success", "Writing piece succesfully updated!")
 
             next();
-        } catch (error) { 
-            console.error(error); 
+        } catch (error) {
+            console.error(error);
             next(error);
         }
 
@@ -119,7 +126,7 @@ module.exports = {
             .catch((error) => {
                 console.error("error deleting writing");
                 next(error);
-            }); 
+            });
 
     },
     redirectView: (req, res, next) => {

@@ -1,27 +1,13 @@
-var courses = [
-    {
-        title: "Rasberry Cake",
-        cost: 50
-    },
-    {
-        title: "Soup",
-        cost: 50
-    },
-    {
-        title: "Chips",
-        cost: 50
-    },
-    {
-        title: "Bread",
-        cost: 50
-    },
-    {
-        title: "Donuts",
-        cost: 50
-    },
-]
+const { getRecent } = require('./writingsController')
+
 module.exports = {
-    index: (req, res) => {
+    index: async (req, res) => {
+        if (req.isAuthenticated()) {
+            await getRecent(req, res)
+
+        } else {
+
+        }
         res.render('index')
     }
 }

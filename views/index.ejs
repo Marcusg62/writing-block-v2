@@ -1,33 +1,66 @@
-<img class="mx-auto" src="images/logo.png" alt="" />
+<% if (loggedIn) { %>
 
-<article class="flex flex-wrap justify-center max-w-xl mx-auto">
-  <p class="font-serif text-2xl mx-auto has-dropcap mt-8">
-    Welcome to Writing Block. This platform is built for writers and creators
-    first. Publish content instantly without worrying about plagarism. When you
-    publish an article, essay, or story, we generate images that reposters
-    cannot copy/paste.
-  </p>
-  <% if (!loggedIn) { %>
-    <a href="/users/new"
-      class="text-center bg-gradient-to-r from-indigo-500 to-indigo-800 p-2 rounded-md text-white w-full mt-8 mb-2">
-      Get Started</a>
+
+  <ul class="flex flex-wrap justify-center max-w-xl mx-auto border mt-4">
+    <% writings.forEach(e=> { %>
+      <li class="mt-2 p-2 border-b">
+        <h3 class="font-bold text-xl underline">
+          <a href="writings/<%= e._id %>">
+            <%= e.title %>
+          </a>
+        </h3>
+        <p>
+          <%= e.description %>
+
+        </p>
+        <p class="text-xs font-light text-right italic mt-2">
+          <%= e.author.fullName %>, <%= new Date(e.createdAt).toLocaleString() %>
+
+        </p>
+
+      </li>
+      <hr>
+      <% }) %>
+        <p class="text-center w-full bg-blue-100 rounded p-3 font-light italic text-xs m-4 ">No more stories available. </p>
+
+  </ul>
+
+  <% } else { %>
+
+    <img class="mx-auto" src="images/logo.png" alt="" />
+
+    <main class="flex flex-wrap justify-center max-w-xl mx-auto">
+      <p class="font-serif text-2xl mx-auto has-dropcap mt-8">
+        Welcome to Writing Block. This platform is built for writers and creators
+        first. Publish content instantly without worrying about plagarism. When you
+        publish an article, essay, or story, we generate images that reposters
+        cannot copy/paste.
+      </p>
+      <% if (!loggedIn) { %>
+        <a href="/users/new"
+          class="text-center bg-gradient-to-r from-indigo-500 to-indigo-800 p-2 rounded-md text-white w-full mt-8 mb-2">
+          Get Started</a>
+        <% } %>
+
+          <a href="/users"
+            class="text-center bg-gradient-to-r from-purple-500 to-purple-800 p-2 rounded-md text-white w-full my-2">
+            View Writers
+          </a>
+          <a href="/writings"
+            class="text-center bg-gradient-to-r from-blue-500 to-blue-800 p-2 rounded-md text-white w-full my-2">
+            View Articles, Stories and More
+          </a>
+    </main>
     <% } %>
+      <style>
+        .has-dropcap:first-letter {
+          float: left;
+          font-size: 6rem;
+          line-height: 0.65;
+          margin: 0.1em 0.1em 0.2em 0;
+        }
 
-      <a href="/users"
-        class="text-center bg-gradient-to-r from-purple-500 to-purple-800 p-2 rounded-md text-white w-full my-2">
-        View Writers
-      </a>
-      <a href="/writings"
-      class="text-center bg-gradient-to-r from-blue-500 to-blue-800 p-2 rounded-md text-white w-full my-2">
-      View Articles, Stories and More
-    </a>
-</article>
-
-<style>
-  .has-dropcap:first-letter {
-    float: left;
-    font-size: 6rem;
-    line-height: 0.65;
-    margin: 0.1em 0.1em 0.2em 0;
-  }
-</style>
+        li {
+          list-style: none;
+        }
+      </style>
