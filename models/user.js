@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const Subscriber = require("./subscriber");
-const Course = require('./course')
 const passportLocalMongoose = require('passport-local-mongoose')
 const userSchema = mongoose.Schema(
 	{
@@ -27,7 +25,7 @@ const userSchema = mongoose.Schema(
 		},
 		streetAddress: String,
 		country: String,
-		city: String, 
+		city: String,
 		state: String,
 		securityQuestion: String,
 		securityAnswer: String,
@@ -35,8 +33,8 @@ const userSchema = mongoose.Schema(
 		profilePhoto: String,
 		about: String,
 		website: String,
-		 
-		following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+
+		following: [{ type: mongoose.Schema.Types.ObjectId }],
 	},
 	{
 		timestamps: true,
@@ -47,20 +45,6 @@ userSchema.virtual("fullName").get(function () {
 	return `${this.name.first} ${this.name.last}`;
 });
 
-userSchema.pre("save", function (next) {
-	let user = this;
-	if (user.subscribedAccount == undefined) {
-		Subscriber.findOne({
-			email: user.email,
-		}).then((subscriber) => {
-			user.subscribedAccount = subscriber;
-            next();
-		}).catch(error => {
-            console.error("Error associated subscriber." + error.message)
-            next(error)
-        });
-	}
-});
 
 userSchema.plugin(passportLocalMongoose, {
 	usernameField: "email"

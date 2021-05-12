@@ -10,6 +10,7 @@
 
 <body>
   <nav class="bg-white border-gray-200 border-b shadow-md">
+
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
       <div class="relative flex items-center justify-between h-24">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -37,117 +38,125 @@
           <div class="hidden sm:block sm:ml-6">
             <div class="flex space-x-4">
               <!-- Current: "bg-blue-900 text-white", Default: "text-gray-300 hover:bg-blue-700 hover:text-white" -->
-              <a href="/users" class="px-3 py-2 hover:bg-blue-700 hover:text-white rounded-md text-sm font-medium">
-                Writers</a>
-              <% if (!loggedIn) { %>
 
-                <a href="/users/login"
-                  class="text-brown-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Sign
-                  In</a>
-                <a href="/users/new"
-                  class="text-brown-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Sign
-                  Up</a>
-                <% } %>
-                  <% if (loggedIn) { %>
-                    <a href="/writings/new"
+              <% if (!loggedIn) { %>
+                <div class="flex items-center">
+                  <a href="/users" class="px-3 py-2 hover:bg-blue-700 hover:text-white rounded-md text-sm font-medium">
+                    Writers</a>
+                  <a href="/users/login"
+                    class="text-brown-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Sign
+                    In</a>
+                  <a href="/users/new"
+                    class="text-brown-300 hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Sign
+                    Up</a>
+                </div>
+                <% } else { %>
+                  <div class="flex items-center">
+                    <a href="/users"
                       class="px-3 py-2 hover:bg-blue-700 hover:text-white rounded-md text-sm font-medium">
-                      Write New Piece</a>
-                    <% } %>
-                      <a href="/writings"
-                        class="px-3 py-2 hover:bg-blue-700 hover:text-white rounded-md text-sm font-medium">
-                        View Recent Pieces</a>
+                      Writers</a>
+                    <a href="/" class="px-3 py-2 hover:bg-blue-700 hover:text-white rounded-md text-sm font-medium">
+                      View Recent Pieces</a>
+                    <a class="btn mx-auto" href="/writings/new">Write a new piece. </a>
+                  </div>
+
+
+
+
+                  <div class="p-4 flex flex-wrap justify-end text-sm items-center">
+
+                    <a href="/users/<%= currentUser._id %> " class="w-full text-right">Logged In as: <%=
+                        currentUser.email %>
+                    </a>
+                    <a href="/users/logout" class="text-red-600 underline">Logout</a>
+                  </div>
+
+                  <% } %>
+
+
+
+
             </div>
           </div>
-        </div>
-        <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-          <button
-            class="p-1 rounded-full text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-400 focus:ring-white">
-            <span class="sr-only">View notifications</span>
-            <!-- Heroicon name: outline/bell -->
-            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-            </svg>
-          </button>
+          <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <button
+              class="p-1 rounded-full text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-400 focus:ring-white">
+              <span class="sr-only">View notifications</span>
+              <!-- Heroicon name: outline/bell -->
+              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="hidden" id="mobile-menu">
-      <div class="px-2 pt-2 pb-3 space-y-1">
-        <!-- Current: "bg-blue-900 text-white", Default: "text-gray-300 hover:bg-blue-700 hover:text-white" -->
-        <a href="/users" class="block px-3 py-2 rounded-md text-base font-medium">Writers</a>
-        <a href="/writings" class="block px-3 py-2 rounded-md text-base font-medium">Recent Writings</a>
+      <!-- Mobile menu, show/hide based on menu state. -->
+      <div class="hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+          <!-- Current: "bg-blue-900 text-white", Default: "text-gray-300 hover:bg-blue-700 hover:text-white" -->
+          <a href="/users" class="block px-3 py-2 rounded-md text-base font-medium">Writers</a>
+          <a href="/writings" class="block px-3 py-2 rounded-md text-base font-medium">Recent Writings</a>
 
-        <% if (!loggedIn) { %>
-          <a href="/users/login"
-            class="hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Sign In</a>
-          <a href="/users/new"
-            class="hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Sign Up</a>
-          <% } %>
+          <% if (!loggedIn) { %>
+            <a href="/users/login"
+              class="hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Sign
+              In</a>
+            <a href="/users/new"
+              class="hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Sign
+              Up</a>
+            <% } %>
+
+
+
+        </div>
 
       </div>
-    </div>
+
 
 
   </nav>
-  <% if (loggedIn) { %>
 
-    <div class="bg-gray-100 p-4 flex flex-wrap justify-center text-sm">
-      <a href="/users/<%= currentUser._id %> " class="underline font-bold mx-2">View My Account</a>
-
-      <p class="text-center">Logged In as: <%= currentUser.email %> <a href="/users/logout"
-            class="text-red-600 underline">Logout</a>
-      </p>
-      <a class="btn mx-auto" href="/writings/new">Write a new piece. </a>
-    </div>
-    <% } else { %>
-
-      <div class="bg-gray-100 p-2 flex flex-wrap justify-center text-sm">
-        <p class="text-center"> <a href="/users/login" class="text-blue-600 underline">Login</a>
-        </p>
-      </div>
-      <% } %>
-        <div class="flashes">
-          <% if(flashMessages) { %>
-            <% if(flashMessages.success) { %>
-              <div class="flash success">
-                <%= flashMessages.success %>
-              </div>
-              <% } else if(flashMessages.error) { %>
-
-                <div class="flash error">
-                  <%= flashMessages.error %>
-                </div>
-                <% } } %>
+  <div class="flashes">
+    <% if(flashMessages) { %>
+      <% if(flashMessages.success) { %>
+        <div class="flash success">
+          <%= flashMessages.success %>
         </div>
+        <% } else if(flashMessages.error) { %>
 
-        <div class="mx-4">
-          <%- body %>
-        </div>
+          <div class="flash error">
+            <%= flashMessages.error %>
+          </div>
+          <% } } %>
+  </div>
 
-        <script>
-          window.addEventListener("click", function (e) {
-            if (
-              !document.getElementById("mobile-menu")?.contains(e.target) &&
-              !document.getElementById("menuToggle")?.contains(e.target)
-            ) {
-              console.log("hiding");
-              document.getElementById("mobile-menu")?.classList.add("hidden");
-            }
-          });
+  <div class="mx-4">
+    <%- body %>
+  </div>
 
-          function showMenu() {
-            if (
-              document?.getElementById("mobile-menu").classList.contains("hidden")
-            ) {
-              document?.getElementById("mobile-menu").classList.remove("hidden");
-            } else {
-              document?.getElementById("mobile-menu").classList.add("hidden");
-            }
-          }
-        </script>
+  <script>
+    window.addEventListener("click", function (e) {
+      if (
+        !document.getElementById("mobile-menu")?.contains(e.target) &&
+        !document.getElementById("menuToggle")?.contains(e.target)
+      ) {
+        console.log("hiding");
+        document.getElementById("mobile-menu")?.classList.add("hidden");
+      }
+    });
+
+    function showMenu() {
+      if (
+        document?.getElementById("mobile-menu").classList.contains("hidden")
+      ) {
+        document?.getElementById("mobile-menu").classList.remove("hidden");
+      } else {
+        document?.getElementById("mobile-menu").classList.add("hidden");
+      }
+    }
+  </script>
 </body>
 
 </html>

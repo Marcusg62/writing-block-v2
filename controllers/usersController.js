@@ -142,6 +142,56 @@ module.exports = {
 	showView: (req, res) => {
 		res.render("users/show");
 	},
+	followSomeone: async (req, res, next) => {
+		try {
+			let user = await User.findById(req.body.id)
+			let following = await User.findById(req.body.followId)
+			if (user) {
+				console.log('pushing...', user)
+				console.log('id', req.body.id)
+				let result = await User.findByIdAndUpdate(req.body.id,
+					{ $addToSet: { 'following': req.body.followId } })
+
+				res.locals.notification = {
+					headline: 'New Follower',
+					message: `Hello World`
+				}
+
+				res.send(result)
+
+
+			} else {
+
+				throw "NO USER FOUND"
+			}
+			res.locals.redirect = `/users/${req.followId}`;
+			next()
+		} catch (error) {
+			console.error(error);
+			res.status(500).json(error)
+		}
+
+	},
+	unFollowSomeone: async (req, res, next) => {
+		try {
+			let user = await User.findById(req.body.id)
+			if (user) {
+				console.log('id', req.body.id)
+				let result = await User.findByIdAndUpdate(req.body.id,
+					{ $pull: { 'following': req.body.followId } })
+				res.send(result)
+			} else {
+
+				throw "NO USER FOUND"
+			}
+			res.locals.redirect = `/users/${req.followId}`;
+			next()
+		} catch (error) {
+			console.error(error);
+			res.status(500).json(error)
+		}
+
+	},
 	edit: (req, res, next) => {
 		let userId = req.params.id;
 		User.findById(userId)
