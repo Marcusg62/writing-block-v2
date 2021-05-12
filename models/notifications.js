@@ -7,6 +7,7 @@ const notificationSchema = mongoose.Schema({
     },
     message: String,
     headline: String,
+    link: String,
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
 },

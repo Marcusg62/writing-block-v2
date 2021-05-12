@@ -157,19 +157,19 @@ module.exports = {
 					message: `Hello World`
 				}
 
-				res.send(result)
+				// res.send(result)
 
 
 			} else {
 
 				throw "NO USER FOUND"
 			}
-			res.locals.redirect = `/users/${req.followId}`;
-			next()
+
 		} catch (error) {
 			console.error(error);
 			res.status(500).json(error)
 		}
+		next()
 
 	},
 	unFollowSomeone: async (req, res, next) => {

@@ -17,8 +17,8 @@ const express = require("express"),
   homeController = require("./controllers/homeController"),
   usersController = require("./controllers/usersController"),
   User = require("./models/user");
-  const writingsController = require('./controllers/writingsController')
-  const notificationsController = require('./controllers/notificationsController')
+const writingsController = require('./controllers/writingsController')
+const notificationsController = require('./controllers/notificationsController')
 
 
 // const cookieParser = require('cookie-parser')
@@ -86,6 +86,21 @@ router.use((req, res, next) => {
 router.use(expressValidator());
 // router.use(homeController.logRequestPaths);
 
+
+// custom middleware
+
+
+router.get("/notifications/markRead/:id", notificationsController.markRead)
+
+
+
+router.use(notificationsController.getNotifications)
+
+
+
+
+
+
 router.get("/", homeController.index);
 
 router.get("/users", usersController.index, usersController.indexView);
@@ -108,8 +123,6 @@ router.post('/users/follow', usersController.followSomeone, notificationsControl
 router.post('/users/unfollow', usersController.unFollowSomeone) // need to add auth verification
 
 
-
-
 router.get("/writings", writingsController.index);
 
 router.get("/writings/new", writingsController.new);
@@ -119,11 +132,11 @@ router.put("/writings/:id/update", writingsController.update, writingsController
 router.delete("/writings/:id/delete", writingsController.delete, writingsController.redirectView);
 router.get("/writings/:id", writingsController.show, writingsController.showView);
 
- 
+
 // router.use(errorController.logErrors);
 // router.use(errorController.respondNoResourceFound); 
 // router.use(errorController.respondInternalError);
- 
+
 app.use("/", router);
 
 app.listen(app.get("port"), () => {
