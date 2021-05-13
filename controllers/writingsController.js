@@ -1,5 +1,8 @@
 const user = require('../models/user');
+const writing = require('../models/writing');
 const Writing = require('../models/writing')
+
+const sanitizeHtml = require('sanitize-html');
 
 
 module.exports = {
@@ -101,7 +104,7 @@ module.exports = {
 
         try {
             const doc = await Writing.findById(writingId);
-            console.log("found writ", doc);
+            console.log("found writing", doc);
             await Writing.findByIdAndUpdate(writingId, {
                 $set: updatedWriting,
             });
@@ -113,6 +116,38 @@ module.exports = {
             console.error(error);
             next(error);
         }
+
+
+    },
+    validate: (req, res, next) => {
+        // let writingId = req.params.id;
+
+        // try {
+        //     const dirty = Writing.findById(writingId);
+        //     console.log("validating writing", doc);
+        //     const clean = sanitizeHtml(dirty);
+        //     res.locals.redirect = `/writings/${doc._id}`;
+        //     req.flash("success", "Writing piece succesfully validated!")
+
+        //     next();
+        // } catch (error) {
+
+        // }
+
+
+        try {
+            let dirty = req.body.content;
+            let clean = sanitizeHtml(dirty, {
+                disallowedTagsMode: ['discard', 'script'],
+
+            })
+            req.body.content = clean;
+            next()
+        } catch (error) {
+            console.error(error);
+            next(error);
+        }
+        console.log(req.body)
 
 
     },

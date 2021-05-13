@@ -126,9 +126,9 @@ router.post('/users/unfollow', usersController.unFollowSomeone) // need to add a
 router.get("/writings", writingsController.index);
 
 router.get("/writings/new", writingsController.new);
-router.post("/writings/create", writingsController.create, writingsController.redirectView);
+router.post("/writings/create",  writingsController.validate, writingsController.create, writingsController.redirectView);
 router.get("/writings/:id/edit", writingsController.edit);
-router.put("/writings/:id/update", writingsController.update, writingsController.redirectView);
+router.put("/writings/:id/update",  writingsController.validate, writingsController.update, writingsController.redirectView);
 router.delete("/writings/:id/delete", writingsController.delete, writingsController.redirectView);
 router.get("/writings/:id", writingsController.show, writingsController.showView);
 
