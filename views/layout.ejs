@@ -73,8 +73,10 @@
 
                   <div class="p-4 flex flex-wrap justify-end text-sm items-center">
 
-                    <a href="/users/<%= currentUser._id %> " class="w-full text-right">Logged In as: <%=
-                        currentUser.email %>
+                    <a href="/users/<%= currentUser._id %> " class="w-full text-right">Logged In as: <span
+                        class="underline" >
+                        <%= currentUser.email %>
+                      </span>
                     </a>
                     <a href="/users/logout" class="text-red-600 underline">Logout</a>
                   </div>
