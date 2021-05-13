@@ -153,8 +153,8 @@ module.exports = {
 					{ $addToSet: { 'following': req.body.followId } })
 
 				res.locals.notification = {
-					headline: 'New Follower',
-					message: `Hello World`
+					headline: 'New Follower 🎉',
+					message: `${user.fullName} followed you!`
 				}
 
 				// res.send(result)

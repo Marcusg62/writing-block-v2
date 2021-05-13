@@ -40,7 +40,7 @@ module.exports = {
 
         if (res.locals.currentUser) {
             let result = []
-            result = await notifications.find({ user: res.locals.currentUser._id }).limit(5).sort({createdAt: 1})
+            result = await notifications.find({ user: res.locals.currentUser._id }).limit(5).sort({createdAt: -1})
             console.log('notifications', result)
             res.locals.notifications = result;
         } else {

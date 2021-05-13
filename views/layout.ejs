@@ -63,7 +63,9 @@
                     <a href="/users"
                       class="px-3 py-2 hover:bg-blue-700 hover:text-white rounded-md text-sm font-medium">
                       Writers</a>
-                    <a class="btn mx-auto" href="/writings/new">Write a new piece. </a>
+                    <a href="/writings/new"
+                      class="px-3 py-2 hover:bg-blue-700 hover:text-white rounded-md text-sm font-medium">
+                      Write A New Piece</a>
                   </div>
 
 
@@ -93,12 +95,18 @@
                           </svg>
 
                         </button>
-                        <span class="bg-red-500 rounded-full w-4 h-4 text-white font-light text-center px-1 -ml-4 -mt-4"
-                          style="font-size: 0.65rem">
-                          <%= notifications.filter(n=> {
-                            return !n.read
-                            }).length %>
-                        </span>
+                        <% if (notifications.filter(n=> {
+                          return !n.read
+                          }).length > 0) { %>
+                          <span
+                            class="bg-red-500 rounded-full w-4 h-4 text-white font-light text-center px-1 -ml-4 -mt-4"
+                            style="font-size: 0.65rem">
+                            <%= notifications.filter(n=> {
+                              return !n.read
+                              }).length %>
+                          </span>
+                          <% } %>
+
 
                       </div>
                     </span>
@@ -110,7 +118,8 @@
 
                         <% notifications.forEach(n=> { %>
 
-                          <div class="border-b p-2 text-xs" onclick="markRead('<%= n._id.toString() %>')">
+                          <div class="border-b p-2 text-xs cursor-pointer"
+                            onclick="markRead('<%= n._id.toString() %>', '<%= n.user.toString() %>')">
                             <div class="underline">
                               <a href="<%= n.link %>">
                                 <%= n.headline %>
@@ -212,23 +221,26 @@
       }
     }
 
-    function markRead(notificationId) {
-      let myHeaders = new Headers();
-      myHeaders.append("Cookie", "connect.sid=s%3A0lLL3XCeIxoqorf_uMRaUL6JELL164DD.m7DAIWjWM8cjYcNChx5O7cEgiGeBy4PG3Ktzyf9PNSs");
-
-      let urlencoded = new URLSearchParams();
+    function markRead(notificationId, followerId) {
 
       let requestOptions = {
         method: 'GET',
-        headers: myHeaders,
-        body: urlencoded,
+        headers: {
+          credentials: 'include'
+        },
         redirect: 'follow'
       };
 
       fetch(`notifications/markRead/${notificationId}`, requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
+        .then(result => {
+          console.log(result)
+          window.location.href = '/users/';
+
+        })
         .catch(error => console.log('error', error));
+
+
     }
 
 
