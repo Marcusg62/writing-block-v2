@@ -1,13 +1,18 @@
 <h2 class="text-xl text-center my-8 font-bold border-b pb-6">Our Writer Community ❤️</h2>
 <ul class="max-w-md m-auto flex justify-center flex-wrap">
-  <% users.forEach(user=> { %>
+  <% users.forEach((user, i)=> { %>
     <li class="w-full flex my-4 ">
       <div>
-        <img class="h-md w-36 h-36 rounded-full"
-          src="https://terrigen-cdn-dev.marvel.com/content/prod/1x/ironman_lob_mas_hlf_02_0.jpg" alt="Profile Photo" />
+        <% if (user.profilePhoto) { %>
+          <img class="h-md w-36 h-36 rounded-full" src="<%=user.profilePhoto %>" alt="Profile Photo" />
+          <% } else { %>
+            <img class="h-md w-36 h-36 rounded-full" src="https://picsum.photos/id/<%= i+400 %>/400"
+              alt="Profile Photo" />
+            <% } %>
+
       </div>
       <div class="ml-4 mt-4">
-        <a class="text-xl font-bold" href="/users">
+        <a class="text-xl font-bold" href="/users/<%= user._id %> ">
           <%= user.fullName %> <span
               class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Verified</span>
         </a>
