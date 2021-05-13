@@ -52,7 +52,7 @@ module.exports = {
 
         try {
 
-            let result = await Writing.findOne({ _id: req.params.id }).exec()
+            let result = await Writing.findOne({ _id: req.params.id }).populate('author').exec()
             // console.log('result', result)
             res.locals.writing = result;
             next();
@@ -120,20 +120,6 @@ module.exports = {
 
     },
     validate: (req, res, next) => {
-        // let writingId = req.params.id;
-
-        // try {
-        //     const dirty = Writing.findById(writingId);
-        //     console.log("validating writing", doc);
-        //     const clean = sanitizeHtml(dirty);
-        //     res.locals.redirect = `/writings/${doc._id}`;
-        //     req.flash("success", "Writing piece succesfully validated!")
-
-        //     next();
-        // } catch (error) {
-
-        // }
-
 
         try {
             let dirty = req.body.content;

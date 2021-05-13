@@ -25,6 +25,12 @@
               <% } %>
                 <% } %>
 
+            <% if (currentUser._id.toString() == user._id.toString()) { %>
+              <a href="/users/<%= currentUser._id %>/edit"
+              class="px-5 py-2 hover:bg-blue-50 border-blue-400 text-blue-500 text-sm border rounded-full font-bold ml-auto">
+              Edit My Profile</a>
+            <% } %>
+
 
     </p>
 

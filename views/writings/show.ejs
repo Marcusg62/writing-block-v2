@@ -3,6 +3,11 @@
     <h1 class="text-3xl font-bold mt-8">
         <%= locals.writing.title %>
     </h1>
+    <p class="text-xs font-light text-right italic mt-2">
+        Written By: <a href="/users/<%= writing.author._id %>" class="underline">
+            <%= locals.writing.author.fullName %></a>, <%= new Date(writing.createdAt).toLocaleString() %>
+
+    </p>
     <blockquote class="rounded-md text-xl my-4 mr-4 bg-blue-200 border-l border-blue-600 p-4">
         <%= writing.description %>
     </blockquote>

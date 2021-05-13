@@ -4,9 +4,9 @@
     <li class="w-full flex my-4 ">
       <div>
         <% if (user.profilePhoto) { %>
-          <img class="h-md w-36 h-36 rounded-full" src="<%=user.profilePhoto %>" alt="Profile Photo" />
+          <img loading="lazy" class="h-md w-36 h-36 rounded-full" src="<%=user.profilePhoto %>" alt="Profile Photo" />
           <% } else { %>
-            <img class="h-md w-36 h-36 rounded-full" src="https://picsum.photos/id/<%= i+400 %>/400"
+            <img loading="lazy" class="h-md w-36 h-36 rounded-full" src="https://picsum.photos/id/<%= i+400 %>/400"
               alt="Profile Photo" />
             <% } %>
 
