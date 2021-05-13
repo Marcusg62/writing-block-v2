@@ -49,6 +49,7 @@ module.exports = {
 				next(error);
 			});
 	},
+	
 	showView: (req, res) => {
 		res.render("subscribers/show");
 	},
