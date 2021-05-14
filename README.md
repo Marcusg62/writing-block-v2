@@ -1,7 +1,10 @@
-# Report
-## UPDATE: 04/15/2021
+# Writing Block
+## Final Report
+## UPDATE: 05/13/2021
 
-Design Choices/Added Features:
+### Live Deployment https://writingblock.herokuapp.com/
+
+Design Choices/Added Features (old, see video for updates):
 
 1. We decided to switch from Vue.js to EJS because relearning how to implement functionality in Vue was too time consuming. We used Confetti Cuisine as a template and moved component by component. 
 2. Updates on our User model to make it more robust, by adding security questions, address, etc. 
@@ -14,28 +17,21 @@ Design Choices/Added Features:
 9. Added post capability for users, where users are able to upload and post their writing to the website
 
 # SUMMARY: 
-
-## The main push was to get the WYSIWYG editor. (HTML EDITOR) It has a similar UI to editing a Google Doc. No small feat! Need to focus more on input sanitation but that will come. We also have not figured out how to upload images. 
-
-## Also need to add security, ie not anybody can update another users' piece of writing. 
+See video
 
 ![Drag Racing](sshot.png)
 
 
-Responsibility Distribution:
-Jazmin Barraza: From added features, bullet points from 1 to 4
-Marcus Gallegos: From added features, bullet points from 5 to 8
+## Responsibility Distribution:
+Both partners worked equally on front end and backend. We would frequently partner code via zoom. 
 
 Future Plans:
 
-Adding a follower/following feature for readers and writers
-Create a feed of writing for users to read
-Ability to upload images for the novels or articles
-Filter published vs drafts
-Ability to comment and like an article or novel
+See Video
 
 
 
-Instructions to Launch:
+# Instructions to Launch:
 `npm install`
+`node seed.js` // NOTE: The default is to our cloud Mongo instance. If you want to run mongo locally, please update the url in main.js and seed.js
 `npm run dev`
