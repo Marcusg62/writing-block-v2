@@ -1,4 +1,4 @@
-<div class="form-data">
+<!-- <div class="form-data">
     <form action="/users/<%=user._id%>/update?_method=PUT" method="POST">
         
     <label for="txtTitle">First</label>
@@ -19,5 +19,317 @@
 
     <button type="submit">Save</button>
 
+    </form>
+</div> -->
+
+<div class="border-b p-2 text-center text-sm" class="form-data">
+    <form action="/users/<%=user._id%>/update?_method=PUT" method="POST">>
+    <div class="max-w-5xl mx-auto my-8">
+        <div>
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+            <div class="md:col-span-1">
+            <div class="px-4 sm:px-0">
+                <h3 class="text-lg font-medium leading-6 text-gray-900">Profile</h3>
+                <p class="mt-1 text-sm text-gray-600">
+                This information will be displayed publicly so be careful what you
+                share.
+                </p>
+            </div>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-2">
+            <div class="shadow sm:rounded-md sm:overflow-hidden">
+                <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="col-span-3 sm:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700">
+                        Email*
+                    </label>
+                    <div class="mt-1 flex rounded-md shadow-sm">
+                        <input autocomplete="none" type="text" name="txtEmail" id="txtEmail"
+                        required value="<%=user.email %> "
+                        class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"/>
+                    </div>
+                    <p class="text-sm text-red-500 block">
+                        <% if (locals.signUpForm) { %>
+                        <%= locals.signUpForm?.email.err %>
+                            <% } %>
+                    </p>
+                    </div>
+                    <div class="col-span-3 sm:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700">
+                        Password*
+                    </label>
+                    <div class="mt-1 flex rounded-md shadow-sm">
+                        <input autocomplete="none" type="password" name="txtPswd" id="txtPswd"
+                        required value="<%=user.password %> "
+                        class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"/>
+                    </div>
+                    <p class="text-sm text-red-500 block">
+                        <% if (locals.signUpForm) { %>
+                        <%= locals.signUpForm?.pw1.err %>
+                            <% } %>
+                    </p>
+                    </div>
+
+                    <div class="col-span-3 sm:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700">
+                        Confirm Password*
+                    </label>
+                    <div class="mt-1 flex rounded-md shadow-sm">
+                        <input name="password2" autocomplete="none" required value="<%=user.password %>" type="password"
+                        class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" />
+                    </div>
+                    <p class="text-sm text-red-500 block">
+                        <% if (locals.signUpForm) { %>
+                        <%= locals.signUpForm?.pw2.err %>
+                            <% } %>
+                    </p>
+                    </div>
+
+                    <div class="col-span-3 sm:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700">
+                        Website (Optional)
+                    </label>
+                    <div class="mt-1 flex rounded-md shadow-sm">
+                        <span
+                        class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                        http://
+                        </span>
+                        <input name="website" type="text"
+                        class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                        placeholder="www.example.com" value="<%=user.about%>" />
+                    </div>
+                    <p class="text-sm text-red-500 block">
+                        <% if (locals.signUpForm) { %>
+                        <%= locals.signUpForm?.website.err %>
+                            <% } %>
+                    </p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">
+                    About (Optional)
+                    </label>
+                    <div class="mt-1">
+                    <textarea rows="3" name="about"
+                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+                        placeholder="Roses are red, violets are blue, tell me something about you. "
+                        value="<%=user.about%>"></textarea>
+                    </div>
+                    <p class="mt-2 text-sm text-gray-500">
+                    Brief description for your profile. URLs are hyperlinked.
+                    </p>
+                    <p class="text-sm text-red-500 block">
+                    <% if (locals.signUpForm) { %>
+                        <%= locals.signUpForm?.about.err %>
+                        <% } %>
+                    </p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700" for="profilePhoto">
+                    Profile Photo URL (Optional)
+                    </label>
+                    <div class="mt-1 flex items-center">
+                    <img class="h-md w-12 h-12 rounded-full" id="profilePicture" src="">
+                    
+                    <input type="text" id="u" name="profilePhoto" placeholder="https://photos.com/myphoto" value="<%=user.profilePhoto %>" />
+
+                    </div>
+                    <script>
+                    const selectElement = document.getElementById('u');
+
+                    selectElement.addEventListener('change', (event) => {
+                        const result = document.getElementById('profilePicture');
+                        result.src = selectElement.value;
+                        console.log(result)
+                    });
+
+                    </script>
+                    <p class="text-sm text-red-500 block">
+                    <% if (locals.signUpForm) { %>
+                        <%= locals.signUpForm?.photo.err %>
+                        <% } %>
+                    </p>
+                </div>
+                <p class="text-sm text-red-500 block">
+                    <% if (locals.signUpForm) { %>
+                    <%= locals.signUpForm?.coverPhoto.err %>
+                        <% } %>
+                </p>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="hidden sm:block" aria-hidden="true">
+        <div class="py-5">
+        <div class="border-t border-gray-200"></div>
+        </div>
+    </div>
+    <div class="mt-10 sm:mt-0">
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+        <div class="md:col-span-1">
+            <div class="px-4 sm:px-0">
+            <h3 class="text-lg font-medium leading-6 text-gray-900">
+                Personal Information
+            </h3>
+            <p class="mt-1 text-sm text-gray-600">
+                Use a permanent address where you can receive mail.
+            </p>
+            </div>
+        </div>
+        <div class="mt-5 md:mt-0 md:col-span-2">
+            <div class="shadow overflow-hidden sm:rounded-md">
+            <div class="px-4 py-5 bg-white sm:p-6">
+                <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3">
+                    <label class="block text-sm font-medium text-gray-700">First name</label>
+                    <input type="text" autocomplete="none" id="txtName" name="first"
+                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    value="<%=user.name.first %>"/>
+                    <p class="text-sm text-red-500 block">
+                    <% if (locals.signUpForm) { %>
+                        <%= locals.signUpForm?.first.err %>
+                        <% } %>
+                    </p>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <label class="block text-sm font-medium text-gray-700">Last name</label>
+                    <input autocomplete="none" type="text" name="last" id="txtTitle"
+                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    required value="<%=user.name.last %> "/>
+                    <p class="text-sm text-red-500 block">
+                    <%= locals.signUpForm?.last.err %>
+                    </p>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <label class="block text-sm font-medium text-gray-700">Country / Region*</label>
+                    <select autocomplete="country"
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    value="<%=locals.signUpForm?.country.val%>" name="country">
+                    <option <% if (user.securityQuestion == 'United States') { %>
+                        selected
+                       <% } %>>United States</option>
+                    <option <% if (user.securityQuestion == 'Canada') { %>
+                        selected
+                       <% } %>>Canada</option>
+                    <option <% if (user.securityQuestion == 'Mexico') { %>
+                        selected
+                       <% } %>>Mexico</option>
+                    </select>
+                    <p class="text-sm text-red-500 block">
+                    <% if (locals.signUpForm) { %>
+                        <%= locals.signUpForm?.country.err %>
+                        <% } %>
+                    </p>
+                </div>
+
+                <div class="col-span-6">
+                    <label class="block text-sm font-medium text-gray-700">Street address*</label>
+                    <input autocomplete="none" type="text" name="streetAddress" id="streetAddress"
+                    required value="<%=user.streetAddress %> "
+                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
+                    <p class="text-sm text-red-500 block">
+                    <% if (locals.signUpForm) { %>
+                        <%= locals.signUpForm?.streetAddress.err %>
+                        <% } %>
+                    </p>
+                </div>
+
+                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700">City*</label>
+                    <input autocomplete="none" type="text" name="city" id="city"
+                    required value="<%=user.city %> "
+                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
+                    <p class="text-sm text-red-500 block">
+                    <% if (locals.signUpForm) { %>
+                        <%= locals.signUpForm?.city.err %>
+                        <% } %>
+                    </p>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700">State / Province*</label>
+                    <input autocomplete="none" type="text" name="state" id="txtState"
+                    required value="<%=user.state %> "
+                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    value="<%=locals.signUpForm?.state.val%>" name="state" />
+                    <p class="text-sm text-red-500 block">
+                    <% if (locals.signUpForm) { %>
+                        <%= locals.signUpForm?.state.err %>
+                        <% } %>
+                    </p>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700">ZIP / Postal*</label>
+                    <input autocomplete="none" type="text" name="zipCode" id="txtZip"
+                    required value="<%=user.zipCode %> "
+                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                    <p class="text-sm text-red-500 block">
+                    <% if (locals.signUpForm) { %>
+                        <%= locals.signUpForm?.zipCode.err %>
+                        <% } %>
+                    </p>
+                </div>
+
+                <div class="col-span-6">
+                    <label class="block text-sm font-medium text-gray-700">Security question*</label>
+                    <select autocomplete="none" id="securityQuestion"
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    required value="<%=user.securityQuestion %> " name="securityQuestion">
+                    <option></option>
+
+                    <option <% if (user.securityQuestion == 'What city were you born in?') { %>
+                     selected
+                    <% } %>>What city were you born in?</option>
+                    <option <% if (user.securityQuestion == "What's your mother's maiden name?") { %>
+                        selected
+                       <% } %>>What's your mother's maiden name?</option>
+                    <option <% if (user.securityQuestion == 'What was the name of your first pet?') { %>
+                        selected
+                       <% } %>>What was the name of your first pet?</option>
+                    </select>
+                    <p class="text-sm text-red-500 block">
+                    <% if (locals.signUpForm) { %>
+                        <%= locals.signUpForm?.securityQuestionChoice.err %>
+                        <% } %>
+                    </p>
+                </div>
+
+                <div class="col-span-6" v-if="locals.signUpForm?.securityQuestionChoice.val">
+                    <label class="block text-sm font-medium text-gray-700">
+                    Security question answer*
+                    </label>
+                    <div class="mt-1 flex rounded-md shadow-sm">
+                    <input autocomplete="none" type="text" name="streetAddress" id="streetAddress"
+                    required value='<%=user.securityAnswer %>'
+                        class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"/>
+                    </div>
+                    <p class="text-sm text-red-500 block">
+                    <% if (locals.signUpForm) { %>
+                        <%= locals.signUpForm?.securityAnswer.err %>
+                        <% } %>
+                    </p>
+                </div>
+                </div>
+            </div>
+            <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                <button type="submit"
+                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Save
+                </button>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
     </form>
 </div>
