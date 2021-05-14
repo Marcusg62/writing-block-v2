@@ -4,8 +4,7 @@
 
 ### Live Deployment https://writingblock.herokuapp.com/
 
-![Demo Video](https://www.youtube.com/watch?v=bJ_0rEVG40c)
-[![IMAGE ALT TEXT](https://www.youtube.com/watch?v=bJ_0rEVG40c/0.jpg)](https://www.youtube.com/watch?v=bJ_0rEVG40c "Writing Block Demo")
+[View Demo Video](https://www.youtube.com/watch?v=bJ_0rEVG40c): https://www.youtube.com/watch?v=bJ_0rEVG40c
 
 Design Choices/Added Features (old, see video for updates):
 
