@@ -45,8 +45,8 @@
                         Email*
                     </label>
                     <div class="mt-1 flex rounded-md shadow-sm">
-                        <input autocomplete="none" type="text" name="txtEmail" id="txtEmail"
-                        required value="<%=user.email %> "
+                        <input autocomplete="none" type="text" name="email" id="email"
+                        required value="<%=user.email %>"
                         class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"/>
                     </div>
                     <p class="text-sm text-red-500 block">
@@ -55,37 +55,6 @@
                             <% } %>
                     </p>
                     </div>
-                    <div class="col-span-3 sm:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700">
-                        Password*
-                    </label>
-                    <div class="mt-1 flex rounded-md shadow-sm">
-                        <input autocomplete="none" type="password" name="txtPswd" id="txtPswd"
-                        required value="<%=user.password %> "
-                        class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"/>
-                    </div>
-                    <p class="text-sm text-red-500 block">
-                        <% if (locals.signUpForm) { %>
-                        <%= locals.signUpForm?.pw1.err %>
-                            <% } %>
-                    </p>
-                    </div>
-
-                    <div class="col-span-3 sm:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700">
-                        Confirm Password*
-                    </label>
-                    <div class="mt-1 flex rounded-md shadow-sm">
-                        <input name="password2" autocomplete="none" required value="<%=user.password %>" type="password"
-                        class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" />
-                    </div>
-                    <p class="text-sm text-red-500 block">
-                        <% if (locals.signUpForm) { %>
-                        <%= locals.signUpForm?.pw2.err %>
-                            <% } %>
-                    </p>
-                    </div>
-
                     <div class="col-span-3 sm:col-span-2">
                     <label class="block text-sm font-medium text-gray-700">
                         Website (Optional)
