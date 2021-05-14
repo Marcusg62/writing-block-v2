@@ -98,6 +98,34 @@ module.exports = {
 
 		})
 	},
+	
+	validateUpdate: (req, res, next) => {
+
+		// to do, add sanitation to other fields
+
+		req.sanitizeBody("email").normalizeEmail({
+			all_lowercase: true
+		}).trim();
+
+		req.check("email", "email is not valid!").isEmail();
+		
+
+		req.getValidationResult().then((error) => {
+			if (!error.isEmpty()) {
+				let messages = error.array().map(e => e.msg)
+				req.flash("error", messages.join(" and "))
+				req.skip = true;
+				res.locals.redirect = "/users/" + req.params.id
+				next()
+
+			}
+			else {
+				next()
+
+			}
+
+		})
+	},
 	logout: (req, res, next) => {
 
 		req.logout()
@@ -129,6 +157,7 @@ module.exports = {
 
 
 		} catch (error) {
+			console.log("show me something")
 			console.log("Error fetching user by id. ");
 			next(error);
 		}
@@ -211,8 +240,16 @@ module.exports = {
 				last: req.body.last,
 			},
 			email: req.body.email,
-			password: req.body.password,
-			zipCode: req.body.zipCode
+			website: req.body.website,
+			about: req.body.about,
+			profilePhoto: req.body.profilePhoto,
+			country: req.body.country,
+			streetAddress: req.body.streetAddress,
+			city: req.body.city,
+			state: req.body.state,
+			zipCode: req.body.zipCode,
+			securityQuestion: req.body.securityQuestion,
+			securityAnswer: req.body.securityAnswer
 		};
 
 		try {
