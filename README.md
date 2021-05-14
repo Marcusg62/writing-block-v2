@@ -4,6 +4,9 @@
 
 ### Live Deployment https://writingblock.herokuapp.com/
 
+![Demo](DEMO.mp4)
+
+
 Design Choices/Added Features (old, see video for updates):
 
 1. We decided to switch from Vue.js to EJS because relearning how to implement functionality in Vue was too time consuming. We used Confetti Cuisine as a template and moved component by component. 
