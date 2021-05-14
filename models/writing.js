@@ -30,7 +30,6 @@ const writingSchema = mongoose.Schema({
     reactions: [{
         emoji: {
             type: String,
-            unique: true,
             length: 1
         },
         users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
