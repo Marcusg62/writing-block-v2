@@ -2,7 +2,29 @@ const mongoose = require("mongoose");
 const passportLocalMongoose = require('passport-local-mongoose')
 const userSchema = mongoose.Schema(
 	{
-		name: {
+
+		email: {
+			type: String,
+			required: true,
+			lowercase: true,
+			unique: true,
+		},
+
+
+		coverPhoto: String,
+		profilePhoto: String,
+		about: String,
+		website: String,
+		birthday: Timestamp?,
+
+		following: [{ type: mongoose.Schema.Types.ObjectId }],
+		followers: [{ type: mongoose.Schema.Types.ObjectId }],
+		membership: {
+			subscribedTo: [{ type: mongoose.Schema.Types.ObjectId }]
+			
+		},
+		legal: {
+			name: {
 			first: {
 				type: String,
 				required: true,
@@ -11,30 +33,17 @@ const userSchema = mongoose.Schema(
 				type: String,
 				required: true,
 			},
-		},
-		email: {
-			type: String,
-			required: true,
-			lowercase: true,
-			unique: true,
-		},
-		zipCode: {
+			zipCode: {
 			type: Number,
 			min: [1000, "Zip code too short"],
 			max: 99999,
-		},
+			},
 		streetAddress: String,
 		country: String,
 		city: String,
 		state: String,
-		securityQuestion: String,
-		securityAnswer: String,
-		coverPhoto: String,
-		profilePhoto: String,
-		about: String,
-		website: String,
-
-		following: [{ type: mongoose.Schema.Types.ObjectId }],
+		},
+		}
 	},
 	{
 		timestamps: true,
